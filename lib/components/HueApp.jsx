@@ -1,44 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import Reboot from 'material-ui/Reboot';
 import AppBar from 'material-ui/AppBar';
 import ToolBar from 'material-ui/ToolBar';
 import Icon from 'material-ui/Icon';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
-import Card from 'material-ui/Card';
+import LightsGrid from './LightsGrid'
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import createPalette from 'material-ui/styles/createPalette'
 import { blue, orange } from 'material-ui/colors';
 
-export default class HueApp extends React.Component {
+const styles = () => ({
+    appContainer: {
+        margin: '0 auto',
+        width: 'calc(100% - 16px)'
+    }
+});
+
+class HueApp extends React.Component {
 
     static propTypes = {
         actions: PropTypes.shape({
-            getLights: PropTypes.func
+            getLights: PropTypes.func,
+            toggleLightOn: PropTypes.func
         }),
-        lights: PropTypes.array
+        classes: PropTypes.object.isRequired,
+        lights: PropTypes.object
     };
     
     static defaultProps = {
-        lights: []
+        lights: {}
     };
 
     componentDidMount() {
         this.props.actions.getLights();
     }
 
-    renderLights(lights) {
-        return lights.map((light) => {
-            return (
-                <Card key={light.id}>
-                    <Typography type="subheading">{light.name}</Typography>
-                </Card>
-            );
-        })
-    }
-
     render() {
         const {
+            actions,
+            classes,
             lights
         } = this.props;
 
@@ -52,7 +55,8 @@ export default class HueApp extends React.Component {
 
         return (
             <MuiThemeProvider theme={theme}>
-                <AppBar>
+                <Reboot />
+                <AppBar position="static">
                     <ToolBar disableGutters>
                         <IconButton>
                             <Icon color="contrast">menu</Icon>
@@ -60,9 +64,12 @@ export default class HueApp extends React.Component {
                         <Typography type="title" color="inherit">Hue LAN Control</Typography>
                     </ToolBar>
                 </AppBar>
-                <h1>Lights!</h1>
-                {this.renderLights(lights)}
+                <div className={classes.appContainer}>
+                    <LightsGrid actions={actions} lights={lights} />
+                </div>
             </MuiThemeProvider>
         );
     }
 }
+
+export default withStyles(styles)(HueApp);

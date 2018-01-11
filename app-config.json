@@ -1,0 +1,4 @@
+{
+    "hueUserKey": "[your HUE user key]",
+    "hueApiHost": "[Host/IP of philips Hue Bridge on local LAN]"
+}
