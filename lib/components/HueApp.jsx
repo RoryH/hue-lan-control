@@ -4,8 +4,6 @@ import { withStyles } from 'material-ui/styles';
 import Reboot from 'material-ui/Reboot';
 import AppBar from 'material-ui/AppBar';
 import ToolBar from 'material-ui/ToolBar';
-import Icon from 'material-ui/Icon';
-import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import LightsGrid from './LightsGrid'
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
@@ -16,6 +14,9 @@ const styles = () => ({
     appContainer: {
         margin: '0 auto',
         width: 'calc(100% - 16px)'
+    },
+    appTitle: {
+        paddingLeft: '20px'
     }
 });
 
@@ -58,10 +59,10 @@ class HueApp extends React.Component {
                 <Reboot />
                 <AppBar position="static">
                     <ToolBar disableGutters>
-                        <IconButton>
+                        {/* <IconButton>
                             <Icon color="contrast">menu</Icon>
-                        </IconButton>
-                        <Typography type="title" color="inherit">Hue LAN Control</Typography>
+                        </IconButton> */}
+                        <Typography type="title" color="inherit" className={classes.appTitle}>Hue LAN Control</Typography>
                     </ToolBar>
                 </AppBar>
                 <div className={classes.appContainer}>
