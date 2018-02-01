@@ -56,7 +56,7 @@ class LightCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedBrightness: props.selectedBrightness
+            selectedBrightness: props.light.state.bri
         };
     }
 
@@ -70,9 +70,17 @@ class LightCard extends React.Component {
     }
 
     handleBrightnessChange = event => {
-        const selectedVal = parseInt(event.target.value, 10)
-        if (!isNaN(selectedVal)) {
-            this.setState({ selectedBrightness: parseInt(event.target.value, 10) });
+        const selectedBrightness = parseInt(event.target.value, 10);
+        const {
+            actions: {
+                setLightBrightness
+            },
+            light
+        } = this.props;
+
+        if (!isNaN(selectedBrightness)) {
+            this.setState({ selectedBrightness });
+            setLightBrightness(light.id, selectedBrightness)
         }
     };
 
@@ -98,41 +106,41 @@ class LightCard extends React.Component {
                         </SvgIcon>
                         <Typography type="caption" className={classes.brightnessText}>20%</Typography>
                         <Radio
-                            checked={this.state.selectedBrightness === 20}
+                            checked={this.state.selectedBrightness === 51}
                             onChange={this.handleBrightnessChange}
-                            value="20"
+                            value="51"
                             name={`lightBrightness${light.id}`}
                             aria-label="20%"
                             className={classes.radio}
                             />
                         <Radio
-                            checked={this.state.selectedBrightness === 40}
+                            checked={this.state.selectedBrightness === 102}
                             onChange={this.handleBrightnessChange}
-                            value="40"
+                            value="102"
                             name={`lightBrightness${light.id}`}
                             aria-label="40%"
                             className={classes.radio}
                             />
                         <Radio
-                            checked={this.state.selectedBrightness === 60}
+                            checked={this.state.selectedBrightness === 153}
                             onChange={this.handleBrightnessChange}
-                            value="60"
+                            value="153"
                             name={`lightBrightness${light.id}`}
                             aria-label="60%"
                             className={classes.radio}
                             />
                         <Radio
-                            checked={this.state.selectedBrightness === 80}
+                            checked={this.state.selectedBrightness === 202}
                             onChange={this.handleBrightnessChange}
-                            value="80"
+                            value="202"
                             name={`lightBrightness${light.id}`}
                             aria-label="80%"
                             className={classes.radio}
                             />
                         <Radio
-                            checked={this.state.selectedBrightness === 100}
+                            checked={this.state.selectedBrightness === 254}
                             onChange={this.handleBrightnessChange}
-                            value="100"
+                            value="254"
                             name={`lightBrightness${light.id}`}
                             aria-label="100%"
                             className={classes.radio}
